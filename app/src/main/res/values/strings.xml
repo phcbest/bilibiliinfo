@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">bilibiliInfo</string>
+    <string name="home">主页</string>
+    <string name="featuresToBeDetermined">功能待定</string>
+    <string name="head_shio">能哭泣的地方，只有厕所和爸爸的怀里 By.冈崎汐</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="danqianhong">#e77c8e</color>
+    <color name="sanlidohong">#c27c88</color>
+    <color name="xiangyehong">#f07c82</color>
+    <color name="baise">#ffffff</color>
+    <color name="tiffany">#81D8CF</color>
+</resources>
