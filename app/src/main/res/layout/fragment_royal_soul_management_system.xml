@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".royalSoulManagementSystem.royalSoulManagementSystem">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+<!--    人类最古代码👇-->
+    <Button
+        android:id="@+id/fragment_royal_soul_management_system_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取图片"
+        />
+    <ImageView
+        android:id="@+id/fragment_royal_soul_management_system_ImageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:text="读取json文件"
+        />
+</LinearLayout>
