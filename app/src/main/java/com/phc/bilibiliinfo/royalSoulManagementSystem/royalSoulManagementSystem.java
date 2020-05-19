@@ -29,6 +29,7 @@ public class royalSoulManagementSystem extends Fragment {
     private static final String TAG = "royalSoulManagementSyst";
 
     private Button fragmentRoyalSoulManagementSystemButton;
+    private Button fragmentRoyalSoulManagementSystemButton2;
     private ImageView fragmentRoyalSoulManagementSystemImageView;
     private final int REQUEST_CHOOSEFILE = 111;
     private final int REQUEST_PERMISSION = 100;
@@ -56,6 +57,7 @@ public class royalSoulManagementSystem extends Fragment {
                 }
             }
         });
+        //button2 can get json file
         return view;
     }
 
@@ -77,9 +79,11 @@ public class royalSoulManagementSystem extends Fragment {
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.d(TAG, "onRequestPermissionsResult: "+requestCode);
         switch (requestCode) {
             case REQUEST_PERMISSION:
                 //直接进行相册选择图片界面
+                Log.d(TAG, "onRequestPermissionsResult: user give permission");
                 choosePhoto();
                 break;
             default:
@@ -95,8 +99,11 @@ public class royalSoulManagementSystem extends Fragment {
             String filePath = FileUtil.getFilePathByUri(getContext(), uri);
             if (!TextUtils.isEmpty(filePath)) {
                 //get photo with uri 通过 uri 获得图片
-                Log.d(TAG, "onActivityResult: "+filePath);
+                Log.d(TAG, "onActivityResult: " + filePath);
+                //show by Picasso
+                fragmentRoyalSoulManagementSystemImageView.setVisibility(View.VISIBLE);
                 Picasso.get().load(uri).into(fragmentRoyalSoulManagementSystemImageView);
+
             }
         }
     }
@@ -104,5 +111,7 @@ public class royalSoulManagementSystem extends Fragment {
     private void initView(View view) {
         fragmentRoyalSoulManagementSystemButton = (Button) view.findViewById(R.id.fragment_royal_soul_management_system_button);
         fragmentRoyalSoulManagementSystemImageView = (ImageView) view.findViewById(R.id.fragment_royal_soul_management_system_ImageView);
+        fragmentRoyalSoulManagementSystemButton2 = (Button) view.findViewById(R.id.fragment_royal_soul_management_system_button2);
     }
+
 }
