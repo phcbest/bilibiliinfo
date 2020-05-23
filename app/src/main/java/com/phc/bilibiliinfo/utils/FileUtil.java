@@ -25,6 +25,7 @@ public class FileUtil {
      * 根据uri获得文件的真实路径
      */
     public static String getFilePathByUri(Context context , Uri uri){
+        //if select is a content
         if ("content".equalsIgnoreCase(uri.getScheme())){
             int sdkVersion = Build.VERSION.SDK_INT;
             if (sdkVersion >= 19){
@@ -51,7 +52,8 @@ public class FileUtil {
         if (DocumentsContract.isDocumentUri(context, uri)) {
             // 如果是document类型的 uri, 则通过document id来进行处理
             String documentId = DocumentsContract.getDocumentId(uri);
-            if (isMediaDocuMent(uri)) { // MediaProvider
+            if (isMediaDocuMent(uri)) {
+                // MediaProvider
                 // 使用':'分割
                 String type = documentId.split(":")[0];
                 String id = documentId.split(":")[1];
@@ -70,8 +72,9 @@ public class FileUtil {
                 }
 
                 filePath = getDataColumn(context, contentUri, selection, selectionArgs);
-            } else if (isDownloadDocument(uri)) { // DownloadsProvider
-                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(documentId));
+            } else if (isDownloadDocument(uri)) {
+                // DownloadsProvider
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.parseLong(documentId));
                 filePath = getDataColumn(context, contentUri, null, null);
             }else if (isExternalStorageDocument(uri)) {
                 // ExternalStorageProvider
@@ -103,50 +106,6 @@ public class FileUtil {
     private static String getRealPathFromUriBelowAPI19(Context context, Uri uri) {
         return getDataColumn(context, uri, null, null);
     }
-
-
-//    public static String getRealPathFromUriAboveApi19(Context context, Uri uri){
-//        String FilePath = null ;
-//        //文件合同.是文件uri
-//        if (DocumentsContract.isDocumentUri(context, uri)){
-//            //文件合同.获得文件uri
-//            String documenId = DocumentsContract.getDocumentId(uri);
-//            //判断是否为媒体文件
-//            if (isMediaDocuMent(uri)){
-//                //将uri分离来开,使用split分离开来后是数组的形式，
-//                String type = documenId.split(":")[0];
-//                String id = documenId.split(":")[1];
-//                String selection = MediaStore.Images.Media._ID+"=?";
-//                String [] selectionArgs = {id};
-//                //
-//                Uri contentUri = null ;
-//                if ("image".equals(type)){
-//                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-//                }else if ("video".equals(type)){
-//                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-//                }else  if ("audio".equals(type)){
-//                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-//                }
-//                FilePath = getDataColumn(context,contentUri,selection,selectionArgs);
-//            }else {
-//                if (isDownloadDocument(uri)){
-//                    Uri contentUri = ContentUris.withAppendedId
-//                            (Uri.parse("content://downloads/public_downloads"),Long.valueOf(documenId));
-//                    FilePath = getDataColumn(context,contentUri,null,null);
-//                } else if (isExternalStorageDocument(uri)) {
-//                    final String docId = DocumentsContract.getDocumentId(uri);
-//                    final String[] split = docId.split(":");
-//                    final String type = split[0];
-//                    if ("primary".equalsIgnoreCase(type)){
-//                        FilePath = Environment.getExternalStorageDirectory()+"/"+split[1];
-//                    }
-//                }else{
-//                    Log.e(TAG, "getRealPathFromUriAboveApi19: 路径错误" );
-//                }
-//            }
-//        }
-//        return null;
-//    }
 
     private static String getDataColumn(Context context, Uri contentUri, String selection, String[] selectionArgs) {
         String path = null;

@@ -20,7 +20,7 @@
                 android:text="获取图片" />
             <ImageView
                 android:id="@+id/fragment_royal_soul_management_system_ImageView"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:text="读取json文件"
                 android:visibility="gone" />
