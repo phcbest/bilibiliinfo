@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/activity_home_get_video_item_image"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/activity_home_get_video_item_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/activity_home_get_video_item_image"
+        app:layout_constraintLeft_toLeftOf="@id/activity_home_get_video_item_image"
+        app:layout_constraintRight_toRightOf="@id/activity_home_get_video_item_image"
+        android:textStyle="bold"
+        android:text="这是标题"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/activity_home_get_video_item_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="发布时间"
+        app:layout_constraintEnd_toEndOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintStart_toStartOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintTop_toBottomOf="@id/activity_home_get_video_item_title" />
+    <TextView
+        android:id="@+id/activity_home_get_video_item_comment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="评论"
+        app:layout_constraintEnd_toEndOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintStart_toStartOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintTop_toBottomOf="@id/activity_home_get_video_item_time" />
+    <TextView
+        android:id="@+id/activity_home_get_video_item_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="播放"
+        app:layout_constraintEnd_toEndOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintStart_toStartOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintTop_toBottomOf="@id/activity_home_get_video_item_comment" />
+    <TextView
+        android:id="@+id/activity_home_get_video_item_like"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="点赞"
+        app:layout_constraintEnd_toEndOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintStart_toStartOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintTop_toBottomOf="@id/activity_home_get_video_item_view" />
+    <TextView
+        android:id="@+id/activity_home_get_video_item_coin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="投币"
+        app:layout_constraintEnd_toEndOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintStart_toStartOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintTop_toBottomOf="@id/activity_home_get_video_item_like" />
+    <TextView
+        android:id="@+id/activity_home_get_video_item_share"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="分享"
+        app:layout_constraintEnd_toEndOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintStart_toStartOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintTop_toBottomOf="@id/activity_home_get_video_item_coin" />
+    <TextView
+        android:id="@+id/activity_home_get_video_item_danmaku"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="弹幕"
+        app:layout_constraintEnd_toEndOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintStart_toStartOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintTop_toBottomOf="@id/activity_home_get_video_item_share" />
+    <TextView
+        android:id="@+id/activity_home_get_video_item_Tag"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TAG"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintStart_toStartOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintTop_toBottomOf="@id/activity_home_get_video_item_danmaku" />
+
+    <TextView
+        android:id="@+id/activity_home_get_video_item_introduce"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="描述"
+        android:textSize="10sp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintStart_toStartOf="@+id/activity_home_get_video_item_image"
+        app:layout_constraintTop_toBottomOf="@id/activity_home_get_video_item_Tag" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
