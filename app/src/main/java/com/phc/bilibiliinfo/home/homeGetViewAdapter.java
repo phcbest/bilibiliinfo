@@ -1,6 +1,8 @@
 package com.phc.bilibiliinfo.home;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +26,9 @@ import java.sql.Date;
  * 描述：
  */
 public class homeGetViewAdapter extends RecyclerView.Adapter<homeGetViewAdapter.ViewHolder> {
-    bilibiliHome data;
+    private static final String TAG = "homeGetViewAdapter";
 
+    bilibiliHome data;
 
     public homeGetViewAdapter(bilibiliHome data) {
         this.data = data;
@@ -33,17 +36,36 @@ public class homeGetViewAdapter extends RecyclerView.Adapter<homeGetViewAdapter.
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_home_get_video_item
                 , parent, false);
+        final ViewHolder viewHolder = new ViewHolder(view);
         //View click
         view.setOnClickListener(new View.OnClickListener() {
+            private TextView dialogHomeViewItemAv;
+            private TextView dialogHomeViewItemBv;
+            private TextView dialogHomeViewItemName;
+            private ImageView dialogHomeViewItemImage;
             @Override
             public void onClick(View v) {
                 //show dialog
+                Log.d(TAG, "onClick: 点击了view");
+                View dialogView = LayoutInflater.from(v.getContext()).inflate(R.layout.dialog_home_view_item, null);
+                dialogHomeViewItemImage = (ImageView) dialogView.findViewById(R.id.dialog_home_view_item_image);
+                dialogHomeViewItemName = (TextView) dialogView.findViewById(R.id.dialog_home_view_item_name);
+                dialogHomeViewItemBv = (TextView) dialogView.findViewById(R.id.dialog_home_view_item_bv);
+                dialogHomeViewItemAv = (TextView) dialogView.findViewById(R.id.dialog_home_view_item_av);
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext()).setView(dialogView)
+                        .setTitle("up主与视频信息");
+                bilibiliHome.DataBean.ArchivesBean archivesBean = data.getData().getArchives()
+                        .get(viewHolder.getAdapterPosition());
+                Picasso.get().load(archivesBean.getOwner().getFace()).into(dialogHomeViewItemImage);
+                dialogHomeViewItemName.setText(archivesBean.getOwner().getName());
+                dialogHomeViewItemAv.setText(String.valueOf("av"+archivesBean.getAid()));
+                dialogHomeViewItemBv.setText(String.valueOf(archivesBean.getBvid()));
+                builder.create().show();
             }
         });
-        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
@@ -55,15 +77,16 @@ public class homeGetViewAdapter extends RecyclerView.Adapter<homeGetViewAdapter.
         Picasso.get().load(archivesBean.getPic()).into(holder.activityHomeGetVideoItemImage);
         holder.activityHomeGetVideoItemTitle.setText(String.valueOf(archivesBean.getTitle()));
         //set Date
-        holder.activityHomeGetVideoItemTime.setText(R.string.time+ new Date(archivesBean.getPubdate()).toString());
-        holder.activityHomeGetVideoItemComment.setText("评论："+String.valueOf(archivesBean.getStat().getReply()));
-        holder.activityHomeGetVideoItemView.setText("播放量："+String.valueOf(archivesBean.getStat().getView()));
-        holder.activityHomeGetVideoItemLike.setText("点赞："+String.valueOf(archivesBean.getStat().getLike()));
-        holder.activityHomeGetVideoItemCoin.setText("硬币："+String.valueOf(archivesBean.getStat().getCoin()));
-        holder.activityHomeGetVideoItemShare.setText("分享："+String.valueOf(archivesBean.getStat().getShare()));
-        holder.activityHomeGetVideoItemDanmaku.setText("弹幕："+String.valueOf(archivesBean.getStat().getDanmaku()));
-        holder.activityHomeGetVideoItemTag.setText("动态："+String.valueOf(archivesBean.getDynamic()));
-        holder.activityHomeGetVideoItemIntroduce.setText("评论："+String.valueOf(archivesBean.getDesc()));
+        holder.activityHomeGetVideoItemTime.setText(R.string.time + new Date(archivesBean.getPubdate()).toString());
+        holder.activityHomeGetVideoItemComment.setText("评论：" + String.valueOf(archivesBean.getStat().getReply()));
+        holder.activityHomeGetVideoItemView.setText("播放量：" + String.valueOf(archivesBean.getStat().getView()));
+        holder.activityHomeGetVideoItemLike.setText("点赞：" + String.valueOf(archivesBean.getStat().getLike()));
+        holder.activityHomeGetVideoItemCoin.setText("硬币：" + String.valueOf(archivesBean.getStat().getCoin()));
+        holder.activityHomeGetVideoItemShare.setText("分享：" + String.valueOf(archivesBean.getStat().getShare()));
+        holder.activityHomeGetVideoItemDanmaku.setText("弹幕：" + String.valueOf(archivesBean.getStat().getDanmaku()));
+        holder.activityHomeGetVideoItemTag.setText("动态：" + String.valueOf(archivesBean.getDynamic()));
+        holder.activityHomeGetVideoItemIntroduce.setText("评论：" + String.valueOf(archivesBean.getDesc()));
+
     }
 
     @Override
@@ -83,6 +106,7 @@ public class homeGetViewAdapter extends RecyclerView.Adapter<homeGetViewAdapter.
         TextView activityHomeGetVideoItemDanmaku;
         TextView activityHomeGetVideoItemTag;
         TextView activityHomeGetVideoItemIntroduce;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             activityHomeGetVideoItemImage = (ImageView) itemView.findViewById(R.id.activity_home_get_video_item_image);
