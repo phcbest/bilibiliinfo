@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.phc.bilibiliinfo.R;
 import com.phc.bilibiliinfo.gsonBean.bilibiliHome;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * 版权：没有版权 看得上就用
@@ -59,7 +61,7 @@ public class homeGetViewAdapter extends RecyclerView.Adapter<homeGetViewAdapter.
                         .setTitle("up主与视频信息");
                 bilibiliHome.DataBean.ArchivesBean archivesBean = data.getData().getArchives()
                         .get(viewHolder.getAdapterPosition());
-                Picasso.get().load(archivesBean.getOwner().getFace()).into(dialogHomeViewItemImage);
+                Picasso.get().load(archivesBean.getOwner().getFace()).memoryPolicy(MemoryPolicy.NO_STORE,MemoryPolicy.NO_CACHE).into(dialogHomeViewItemImage);
                 dialogHomeViewItemName.setText(archivesBean.getOwner().getName());
                 dialogHomeViewItemAv.setText(String.valueOf("av"+archivesBean.getAid()));
                 dialogHomeViewItemBv.setText(String.valueOf(archivesBean.getBvid()));
@@ -74,10 +76,13 @@ public class homeGetViewAdapter extends RecyclerView.Adapter<homeGetViewAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         bilibiliHome.DataBean.ArchivesBean archivesBean = data.getData().getArchives().get(position);
         //show Pic
-        Picasso.get().load(archivesBean.getPic()).into(holder.activityHomeGetVideoItemImage);
+        Picasso.get().load(archivesBean.getPic()).memoryPolicy(MemoryPolicy.NO_STORE,MemoryPolicy.NO_CACHE).into(holder.activityHomeGetVideoItemImage);
         holder.activityHomeGetVideoItemTitle.setText(String.valueOf(archivesBean.getTitle()));
         //set Date
-        holder.activityHomeGetVideoItemTime.setText(R.string.time + new Date(archivesBean.getPubdate()).toString());
+        Log.d(TAG, "onBindViewHolder: "+ (long) archivesBean.getPubdate() *1000);
+        String format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date((long) archivesBean.getPubdate() *1000));
+        holder.activityHomeGetVideoItemTime.setText("时间：" + format);
+        Log.d(TAG, "onBindViewHolder: "+format);
         holder.activityHomeGetVideoItemComment.setText("评论：" + String.valueOf(archivesBean.getStat().getReply()));
         holder.activityHomeGetVideoItemView.setText("播放量：" + String.valueOf(archivesBean.getStat().getView()));
         holder.activityHomeGetVideoItemLike.setText("点赞：" + String.valueOf(archivesBean.getStat().getLike()));

@@ -32,8 +32,10 @@ public class httpUtil extends AsyncTask<String,String,String> {
 
     private Context context;
     private upUi upUi;
+    private Boolean ifShowProgressDialog;
 
-    public httpUtil(Context context, upUi upUi) {
+    public httpUtil(Boolean ifShowProgressDialog,Context context, upUi upUi) {
+        this.ifShowProgressDialog = ifShowProgressDialog;
         this.context = context;
         this.upUi = upUi;
     }
@@ -43,10 +45,12 @@ public class httpUtil extends AsyncTask<String,String,String> {
     protected void onPreExecute() {
         //start dialog
         super.onPreExecute();
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("梦想是现实的延续,现实是梦想的终点");
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
+        if (ifShowProgressDialog ){
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setMessage("梦想是现实的延续,现实是梦想的终点");
+            progressDialog.setIndeterminate(true);
+            progressDialog.show();
+        }
     }
 
     @Override
@@ -86,6 +90,10 @@ public class httpUtil extends AsyncTask<String,String,String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         //get data ok , not show progressDialog
-        progressDialog.cancel();
+        try {
+            progressDialog.cancel();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

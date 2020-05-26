@@ -46,7 +46,7 @@ public class homeGetVideo extends AppCompatActivity {
         activityHomeGetVideoSwiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                httpUtil util = new httpUtil(homeGetVideo.this, new upUi() {
+                httpUtil util = new httpUtil(true,homeGetVideo.this, new upUi() {
                     @Override
                     public void NewView(String callBackJson) {
                         //get new bean

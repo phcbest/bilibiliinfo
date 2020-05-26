@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.phc.bilibiliinfo.defined.imagefillet
         android:id="@+id/activity_home_get_video_item_image"
         android:layout_width="150dp"
         android:layout_height="100dp"
