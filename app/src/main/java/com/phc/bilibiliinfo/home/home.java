@@ -48,7 +48,7 @@ public class home extends Fragment {
         fragmentHomeHomeButtonClick();
         //on line number of people
         fragmentHomeMainStationButtonClick();
-
+        //
         return view;
     }
 
@@ -69,16 +69,17 @@ public class home extends Fragment {
                             @Override
                             public void NewView(String callBackJson) {
                                 bilibilionline bill = new Gson().fromJson(callBackJson, bilibilionline.class);
-                                item[0] = "番剧区：" +String.valueOf(bill.getData().getRegion_count().get_$167());
-                                item[2] = "国创区：" +String.valueOf(bill.getData().getRegion_count().get_$119());
-                                item[3] = "鬼畜区：" +String.valueOf(bill.getData().getRegion_count().get_$202());
-                                item[4] = "资讯区：" +String.valueOf(bill.getData().getRegion_count().get_$1()  );
-                                item[5] = "动画区：" +String.valueOf(bill.getData().getRegion_count().get_$138());
-                                item[6] = "音乐区：" +String.valueOf(bill.getData().getRegion_count().get_$155());
-                                item[7] = "舞蹈区：" +String.valueOf(bill.getData().getRegion_count().get_$160());
-                                item[8] = "生活区：" +String.valueOf(bill.getData().getRegion_count().get_$17() );
-                                item[9] = "娱乐区：" +String.valueOf(bill.getData().getRegion_count().get_$181());
-                                item[10] = "数码区：" + String.valueOf(bill.getData().getRegion_count().get_$3());
+                                item[0] = "番剧区：" +String.valueOf(bill.getData().getRegion_count().get_$13());
+                                item[1] = "国创区：" +String.valueOf(bill.getData().getRegion_count().get_$167());
+                                item[2] = "鬼畜区：" +String.valueOf(bill.getData().getRegion_count().get_$119());
+                                item[3] = "资讯区：" +String.valueOf(bill.getData().getRegion_count().get_$202());
+                                item[4] = "动画区：" +String.valueOf(bill.getData().getRegion_count().get_$1());
+                                item[5] = "音乐区：" +String.valueOf(bill.getData().getRegion_count().get_$138());
+                                item[6] = "舞蹈区：" +String.valueOf(bill.getData().getRegion_count().get_$129());
+                                item[7] = "生活区：" +String.valueOf(bill.getData().getRegion_count().get_$181());
+                                item[8] = "娱乐区：" +String.valueOf(bill.getData().getRegion_count().get_$17());
+                                item[9] = "数码区：" + String.valueOf(bill.getData().getRegion_count().get_$188());
+                                item[10] = "时尚区：" + String.valueOf(bill.getData().getRegion_count().get_$155());
                                 adapter.notifyDataSetChanged();
                             }
                         });
@@ -104,11 +105,11 @@ public class home extends Fragment {
                                 "资讯区：" + bl.getData().getRegion_count().get_$202(),
                                 "动画区：" + bl.getData().getRegion_count().get_$1(),
                                 "音乐区：" + bl.getData().getRegion_count().get_$138(),
-                                "舞蹈区：" + bl.getData().getRegion_count().get_$155(),
-                                "生活区：" + bl.getData().getRegion_count().get_$160(),
+                                "舞蹈区：" + bl.getData().getRegion_count().get_$129(),
+                                "生活区：" + bl.getData().getRegion_count().get_$181(),
                                 "娱乐区：" + bl.getData().getRegion_count().get_$17(),
-                                "数码区：" + bl.getData().getRegion_count().get_$181(),
-                                "时尚区：" + bl.getData().getRegion_count().get_$3()};
+                                "数码区：" + bl.getData().getRegion_count().get_$188(),
+                                "时尚区：" + bl.getData().getRegion_count().get_$155()};
                         View view = LayoutInflater.from(v.getContext())
                                 .inflate(R.layout.dialog_home_online, null);
                         dialogHomeOnline = (ListView) view.findViewById(R.id.dialog_home_online);
@@ -161,7 +162,6 @@ public class home extends Fragment {
 
 
     /**
-     * @param view
      */
     private void initView(View view) {
         fragmentHomeVideo = (EditText) view.findViewById(R.id.fragment_home_video);
