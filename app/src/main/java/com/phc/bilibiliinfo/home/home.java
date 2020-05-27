@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,8 +22,10 @@ import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
 import com.phc.bilibiliinfo.R;
+import com.phc.bilibiliinfo.gsonBean.bilibiliVideo;
 import com.phc.bilibiliinfo.gsonBean.bilibilionline;
 import com.phc.bilibiliinfo.interfaceAll.upUi;
+import com.phc.bilibiliinfo.utils.ToBvAv;
 import com.phc.bilibiliinfo.utils.httpUtil;
 
 public class home extends Fragment {
@@ -48,8 +49,49 @@ public class home extends Fragment {
         fragmentHomeHomeButtonClick();
         //on line number of people
         fragmentHomeMainStationButtonClick();
-        //
+        //video query button
+        fragmentHomeVideoButtonClick();
+
         return view;
+    }
+
+    private void fragmentHomeVideoButtonClick() {
+        //editText if have import
+            fragmentHomeVideoButton.setOnClickListener(new View.OnClickListener() {
+
+                private String av;
+
+                @Override
+                public void onClick(View v) {
+                    if (!"".equals(fragmentHomeVideo.getText().toString())){
+                        //getAV
+                        try {
+                            av = new ToBvAv().bv2av(fragmentHomeVideo.getText().toString());
+
+                            httpUtil util = new httpUtil(true, getContext(), new upUi() {
+                                @Override
+                                public void NewView(String callBackJson) {
+                                    bilibiliVideo bv = new Gson().fromJson(callBackJson, bilibiliVideo.class);
+                                    if (bv.getData() != null){
+                                        Intent intent = new Intent(getActivity(),homeVideo.class);
+                                        intent.putExtra("json",callBackJson);
+                                        startActivity(intent);
+                                    }else{
+                                        Toast.makeText(getContext(), "返回数据没有数据体，请检查一下BV号", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                            util.execute("https://api.bilibili.com/x/web-interface/view?aid="+av+"&type=json");
+                        }catch (Exception e){
+                            Toast.makeText(getContext(), "BV号输入错误，注意在前面输入BV，检查一遍再次输入"
+                                    , Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+                    }else {
+                        Toast.makeText(getContext(), "您没有输入BV号，请输入", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
     }
 
     private void fragmentHomeMainStationButtonClick() {
@@ -74,12 +116,13 @@ public class home extends Fragment {
                                 item[2] = "鬼畜区：" +String.valueOf(bill.getData().getRegion_count().get_$119());
                                 item[3] = "资讯区：" +String.valueOf(bill.getData().getRegion_count().get_$202());
                                 item[4] = "动画区：" +String.valueOf(bill.getData().getRegion_count().get_$1());
-                                item[5] = "音乐区：" +String.valueOf(bill.getData().getRegion_count().get_$138());
+                                item[5] = "音乐区：" +String.valueOf(bill.getData().getRegion_count().get_$3());
                                 item[6] = "舞蹈区：" +String.valueOf(bill.getData().getRegion_count().get_$129());
                                 item[7] = "生活区：" +String.valueOf(bill.getData().getRegion_count().get_$181());
-                                item[8] = "娱乐区：" +String.valueOf(bill.getData().getRegion_count().get_$17());
+                                item[8] = "娱乐区：" +String.valueOf(bill.getData().getRegion_count().get_$5());
                                 item[9] = "数码区：" + String.valueOf(bill.getData().getRegion_count().get_$188());
                                 item[10] = "时尚区：" + String.valueOf(bill.getData().getRegion_count().get_$155());
+                                item[11] = "游戏区：" + String.valueOf(bill.getData().getRegion_count().get_$4());
                                 adapter.notifyDataSetChanged();
                             }
                         });
@@ -104,12 +147,13 @@ public class home extends Fragment {
                                 "鬼畜区：" + bl.getData().getRegion_count().get_$119(),
                                 "资讯区：" + bl.getData().getRegion_count().get_$202(),
                                 "动画区：" + bl.getData().getRegion_count().get_$1(),
-                                "音乐区：" + bl.getData().getRegion_count().get_$138(),
+                                "音乐区：" + bl.getData().getRegion_count().get_$3(),
                                 "舞蹈区：" + bl.getData().getRegion_count().get_$129(),
                                 "生活区：" + bl.getData().getRegion_count().get_$181(),
-                                "娱乐区：" + bl.getData().getRegion_count().get_$17(),
+                                "娱乐区：" + bl.getData().getRegion_count().get_$5(),
                                 "数码区：" + bl.getData().getRegion_count().get_$188(),
-                                "时尚区：" + bl.getData().getRegion_count().get_$155()};
+                                "时尚区：" + bl.getData().getRegion_count().get_$155(),
+                                "游戏区：" + bl.getData().getRegion_count().get_$4()};
                         View view = LayoutInflater.from(v.getContext())
                                 .inflate(R.layout.dialog_home_online, null);
                         dialogHomeOnline = (ListView) view.findViewById(R.id.dialog_home_online);
