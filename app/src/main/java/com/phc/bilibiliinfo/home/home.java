@@ -24,9 +24,12 @@ import com.google.gson.Gson;
 import com.phc.bilibiliinfo.R;
 import com.phc.bilibiliinfo.gsonBean.bilibiliVideo;
 import com.phc.bilibiliinfo.gsonBean.bilibilionline;
+import com.phc.bilibiliinfo.gsonBean.bilibiliup;
 import com.phc.bilibiliinfo.interfaceAll.upUi;
 import com.phc.bilibiliinfo.utils.ToBvAv;
 import com.phc.bilibiliinfo.utils.httpUtil;
+
+import org.json.JSONObject;
 
 public class home extends Fragment {
     private static final String TAG = "home";
@@ -51,8 +54,40 @@ public class home extends Fragment {
         fragmentHomeMainStationButtonClick();
         //video query button
         fragmentHomeVideoButtonClick();
-
+        //up people
+        fragmentHomeUPButtonClick();
+        
         return view;
+    }
+
+    private void fragmentHomeUPButtonClick() {
+        fragmentHomeUPButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String s = fragmentHomeUP.getText().toString();
+                if (!"".equals(s)){
+                    //get josn
+                    httpUtil util = new httpUtil(true, getContext(), new upUi() {
+                        @Override
+                        public void NewView(String callBackJson) {
+                            bilibiliup bu = new Gson().fromJson(callBackJson, bilibiliup.class);
+                            if (bu.getData() != null){
+                                Intent intent = new Intent(getActivity(), homeUp.class);
+                                intent.putExtra("upJson",callBackJson);
+                                startActivity(intent);
+                            }else {
+                                Toast.makeText(getContext(), "没有该UID,请查证后再查询",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    util.execute("https://api.bilibili.com/x/space/acc/info?mid="+s+"&jsonp=jsonp");
+                }else {
+                    Toast.makeText(getContext(), "请输入UP主的UID", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     private void fragmentHomeVideoButtonClick() {

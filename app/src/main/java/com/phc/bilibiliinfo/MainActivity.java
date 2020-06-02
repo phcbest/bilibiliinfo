@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (position == 1) {
                     activityRadioButtonMusic.setChecked(true);
-                    activityToolbar.setTitle(R.string.music);
+                    activityToolbar.setTitle(R.string.chat);
 
                 }
                 if (position == 2) {

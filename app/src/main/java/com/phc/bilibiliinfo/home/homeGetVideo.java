@@ -30,7 +30,6 @@ public class homeGetVideo extends AppCompatActivity {
         //get intent callback data
         String json = getIntent().getStringExtra("Json");
         Log.d(TAG, "onCreate: " + json);
-
         //get json important data
         bhome = new Gson().fromJson(json, bilibiliHome.class);
         Log.d(TAG, "onCreate: "+ bhome);

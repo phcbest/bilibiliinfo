@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".home.homeVideo"></activity>
+        <activity android:name=".home.homeUp"></activity>
+        <activity android:name=".home.homeVideo" />
         <activity android:name=".home.homeGetVideo" />
         <activity android:name=".MainActivity">
             <intent-filter>
