@@ -4,8 +4,12 @@ import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.phc.bilibiliinfo.home.homeGetVideo;
 import com.phc.bilibiliinfo.interfaceAll.upUi;
 import com.phc.bilibiliinfo.startInit.myApplication;
 
@@ -39,6 +43,7 @@ public class httpUtil extends AsyncTask<String,String,String> {
         this.context = context;
         this.upUi = upUi;
     }
+
 
     //use Service get
     @Override
