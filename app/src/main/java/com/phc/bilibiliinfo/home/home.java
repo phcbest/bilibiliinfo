@@ -56,7 +56,7 @@ public class home extends Fragment {
         fragmentHomeVideoButtonClick();
         //up people
         fragmentHomeUPButtonClick();
-        
+
         return view;
     }
 
@@ -65,24 +65,24 @@ public class home extends Fragment {
             @Override
             public void onClick(View v) {
                 final String s = fragmentHomeUP.getText().toString();
-                if (!"".equals(s)){
+                if (!"".equals(s)) {
                     //get josn
                     httpUtil util = new httpUtil(true, getContext(), new upUi() {
                         @Override
                         public void NewView(String callBackJson) {
                             bilibiliup bu = new Gson().fromJson(callBackJson, bilibiliup.class);
-                            if (bu.getData() != null){
+                            if (bu.getData() != null) {
                                 Intent intent = new Intent(getActivity(), homeUp.class);
-                                intent.putExtra("upJson",callBackJson);
+                                intent.putExtra("upJson", callBackJson);
                                 startActivity(intent);
-                            }else {
+                            } else {
                                 Toast.makeText(getContext(), "没有该UID,请查证后再查询",
                                         Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                    util.execute("https://api.bilibili.com/x/space/acc/info?mid="+s+"&jsonp=jsonp");
-                }else {
+                    util.execute("https://api.bilibili.com/x/space/acc/info?mid=" + s + "&jsonp=jsonp");
+                } else {
                     Toast.makeText(getContext(), "请输入UP主的UID", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -92,41 +92,41 @@ public class home extends Fragment {
 
     private void fragmentHomeVideoButtonClick() {
         //editText if have import
-            fragmentHomeVideoButton.setOnClickListener(new View.OnClickListener() {
+        fragmentHomeVideoButton.setOnClickListener(new View.OnClickListener() {
 
-                private String av;
+            private String av;
 
-                @Override
-                public void onClick(View v) {
-                    if (!"".equals(fragmentHomeVideo.getText().toString())){
-                        //getAV
-                        try {
-                            av = new ToBvAv().bv2av(fragmentHomeVideo.getText().toString());
+            @Override
+            public void onClick(View v) {
+                if (!"".equals(fragmentHomeVideo.getText().toString())) {
+                    //getAV
+                    try {
+                        av = new ToBvAv().bv2av(fragmentHomeVideo.getText().toString());
 
-                            httpUtil util = new httpUtil(true, getContext(), new upUi() {
-                                @Override
-                                public void NewView(String callBackJson) {
-                                    bilibiliVideo bv = new Gson().fromJson(callBackJson, bilibiliVideo.class);
-                                    if (bv.getData() != null){
-                                        Intent intent = new Intent(getActivity(),homeVideo.class);
-                                        intent.putExtra("json",callBackJson);
-                                        startActivity(intent);
-                                    }else{
-                                        Toast.makeText(getContext(), "返回数据没有数据体，请检查一下BV号", Toast.LENGTH_SHORT).show();
-                                    }
+                        httpUtil util = new httpUtil(true, getContext(), new upUi() {
+                            @Override
+                            public void NewView(String callBackJson) {
+                                bilibiliVideo bv = new Gson().fromJson(callBackJson, bilibiliVideo.class);
+                                if (bv.getData() != null) {
+                                    Intent intent = new Intent(getActivity(), homeVideo.class);
+                                    intent.putExtra("json", callBackJson);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(getContext(), "返回数据没有数据体，请检查一下BV号", Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                            util.execute("https://api.bilibili.com/x/web-interface/view?aid="+av+"&type=json");
-                        }catch (Exception e){
-                            Toast.makeText(getContext(), "BV号输入错误，注意在前面输入BV，检查一遍再次输入"
-                                    , Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
-                    }else {
-                        Toast.makeText(getContext(), "您没有输入BV号，请输入", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        util.execute("https://api.bilibili.com/x/web-interface/view?aid=" + av + "&type=json");
+                    } catch (Exception e) {
+                        Toast.makeText(getContext(), "BV号输入错误，注意在前面输入BV，检查一遍再次输入"
+                                , Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
                     }
+                } else {
+                    Toast.makeText(getContext(), "您没有输入BV号，请输入", Toast.LENGTH_SHORT).show();
                 }
-            });
+            }
+        });
     }
 
     private void fragmentHomeMainStationButtonClick() {
@@ -142,19 +142,19 @@ public class home extends Fragment {
                 @Override
                 public boolean handleMessage(@NonNull Message msg) {
                     if (msg.what == 100) {
-                        httpUtil util = new httpUtil(false,getContext(), new upUi() {
+                        httpUtil util = new httpUtil(false, getContext(), new upUi() {
                             @Override
                             public void NewView(String callBackJson) {
                                 bilibilionline bill = new Gson().fromJson(callBackJson, bilibilionline.class);
-                                item[0] = "番剧区：" +String.valueOf(bill.getData().getRegion_count().get_$13());
-                                item[1] = "国创区：" +String.valueOf(bill.getData().getRegion_count().get_$167());
-                                item[2] = "鬼畜区：" +String.valueOf(bill.getData().getRegion_count().get_$119());
-                                item[3] = "资讯区：" +String.valueOf(bill.getData().getRegion_count().get_$202());
-                                item[4] = "动画区：" +String.valueOf(bill.getData().getRegion_count().get_$1());
-                                item[5] = "音乐区：" +String.valueOf(bill.getData().getRegion_count().get_$3());
-                                item[6] = "舞蹈区：" +String.valueOf(bill.getData().getRegion_count().get_$129());
-                                item[7] = "生活区：" +String.valueOf(bill.getData().getRegion_count().get_$181());
-                                item[8] = "娱乐区：" +String.valueOf(bill.getData().getRegion_count().get_$5());
+                                item[0] = "番剧区：" + String.valueOf(bill.getData().getRegion_count().get_$13());
+                                item[1] = "国创区：" + String.valueOf(bill.getData().getRegion_count().get_$167());
+                                item[2] = "鬼畜区：" + String.valueOf(bill.getData().getRegion_count().get_$119());
+                                item[3] = "资讯区：" + String.valueOf(bill.getData().getRegion_count().get_$202());
+                                item[4] = "动画区：" + String.valueOf(bill.getData().getRegion_count().get_$1());
+                                item[5] = "音乐区：" + String.valueOf(bill.getData().getRegion_count().get_$3());
+                                item[6] = "舞蹈区：" + String.valueOf(bill.getData().getRegion_count().get_$129());
+                                item[7] = "生活区：" + String.valueOf(bill.getData().getRegion_count().get_$181());
+                                item[8] = "娱乐区：" + String.valueOf(bill.getData().getRegion_count().get_$5());
                                 item[9] = "数码区：" + String.valueOf(bill.getData().getRegion_count().get_$188());
                                 item[10] = "时尚区：" + String.valueOf(bill.getData().getRegion_count().get_$155());
                                 item[11] = "游戏区：" + String.valueOf(bill.getData().getRegion_count().get_$4());
@@ -170,7 +170,7 @@ public class home extends Fragment {
 
             @Override
             public void onClick(final View v) {
-                httpUtil util = new httpUtil(true,getContext(), new upUi() {
+                httpUtil util = new httpUtil(true, getContext(), new upUi() {
                     @Override
                     public void NewView(final String callBackJson) {
                         bilibilionline bl = new Gson().fromJson(callBackJson, bilibilionline.class);
@@ -198,7 +198,7 @@ public class home extends Fragment {
                                 Toast.makeText(getContext(), item[position], Toast.LENGTH_SHORT).show();
                             }
                         });
-                        adapter = new ArrayAdapter<String>(v.getContext(),android.R.layout.simple_list_item_1,android.R.id.text1, item);
+                        adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, item);
                         dialogHomeOnline.setAdapter(adapter);
                         builder.setView(view);
                         builder.setTitle("B站主站在线人数");
@@ -226,10 +226,17 @@ public class home extends Fragment {
             @Override
             public void onClick(View v) {
                 //      click button get bilibili url  information
-                new httpUtil(true,getContext(), new upUi() {
+                new httpUtil(true, getContext(), new upUi() {
                     @Override
                     public void NewView(String callBackJson) {
                         Intent intent = new Intent(getActivity(), homeGetVideo.class);
+                        intent.putExtra("Json", callBackJson);
+                        Bundle bundle = new Bundle();
+                        exObjectBean exObjectBean = new exObjectBean();
+                        exObjectBean.setAge(10);
+                        exObjectBean.setName("小明");
+                        bundle.putSerializable("info", exObjectBean);
+                        intent.putExtra("bundle", bundle);
                         intent.putExtra("Json", callBackJson);
                         startActivity(intent);
                     }
@@ -241,6 +248,7 @@ public class home extends Fragment {
 
 
     /**
+     *
      */
     private void initView(View view) {
         fragmentHomeVideo = (EditText) view.findViewById(R.id.fragment_home_video);

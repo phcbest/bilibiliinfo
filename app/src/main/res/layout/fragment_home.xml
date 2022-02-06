@@ -5,49 +5,50 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".home.home">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <EditText
             android:id="@+id/fragment_home_video"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="输入视频的BV号"
-            />
+            android:layout_weight="1"
+            android:hint="输入视频的BV号" />
+
         <Button
             android:id="@+id/fragment_home_videoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="进行查询"
             android:background="?attr/selectableItemBackgroundBorderless"
-            />
+            android:text="进行查询" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <EditText
             android:id="@+id/fragment_home_UP"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:layout_weight="1"
             android:hint="输入UP主的UID"
-            />
+            android:text="434334701" />
+
         <Button
             android:id="@+id/fragment_home_UPButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="进行查询"
             android:background="?attr/selectableItemBackgroundBorderless"
-            />
+            android:text="进行查询" />
     </LinearLayout>
 
     <Button
@@ -55,16 +56,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="显示主站首页信息"
         android:background="?attr/selectableItemBackground"
-        />
+        android:text="显示主站首页信息" />
+
     <Button
         android:id="@+id/fragment_home_main_station_Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="显示主站的在线人数"
         android:background="?attr/selectableItemBackground"
+        android:text="显示主站的在线人数"
 
         />
 </LinearLayout>
