@@ -11,4 +11,6 @@
     <string name="soulManager">数据可视化</string>
     <string name="time">时间：</string>
     <string name="chat">聊天</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

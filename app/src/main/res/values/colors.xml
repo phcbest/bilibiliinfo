@@ -10,4 +10,8 @@
     <color name="tiffany">#81D8CF</color>
     <color name="yanhong">#894e54</color>
     <color name="shubihong">#e3b4b8</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
 </resources>

@@ -1,11 +1,11 @@
 package com.phc.bilibiliinfo.home;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,12 +20,16 @@ import com.phc.bilibiliinfo.gsonBean.bilibiliAnimation;
 import com.phc.bilibiliinfo.gsonBean.bilibiliWorks;
 import com.phc.bilibiliinfo.gsonBean.bilibiliup;
 import com.phc.bilibiliinfo.interfaceAll.upUi;
+import com.phc.bilibiliinfo.utils.OkHttputils;
+import com.phc.bilibiliinfo.utils.bean.FollowBean;
 import com.phc.bilibiliinfo.utils.httpUtil;
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.List;
 
 public class homeUp extends AppCompatActivity {
@@ -35,6 +39,14 @@ public class homeUp extends AppCompatActivity {
     private TextView activityHomeUpMessage;
     private LinearLayout activityHomeUpWorks;
     private LinearLayout activityHomeUpAnimation;
+    private TextView mActivityHomeFollow;
+    private CountDownTimer countDownTimer;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        countDownTimer.onFinish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +55,7 @@ public class homeUp extends AppCompatActivity {
         initView();
 
         String upJson = getIntent().getStringExtra("upJson");
-        bilibiliup.DataBean data = new Gson().fromJson(upJson, bilibiliup.class).getData();
+        final bilibiliup.DataBean data = new Gson().fromJson(upJson, bilibiliup.class).getData();
         //show pic
         Picasso.get().load(data.getFace())
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
@@ -57,6 +69,55 @@ public class homeUp extends AppCompatActivity {
         } else {
             officialName = "没有官方认证";
         }
+
+        countDownTimer = new CountDownTimer(Long.MAX_VALUE, 1000) {
+
+            int history1 = 0;
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                OkHttputils.doGetNetWork("https://api.bilibili.com/x/relation/stat?vmid=" + data.getMid(),
+                        new OkHttputils.callBack() {
+                            @Override
+                            public void success(final String response) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        FollowBean followBean = new Gson().fromJson(response, FollowBean.class);
+                                        String color = "#808080";
+                                        String followStatus = "";
+                                        int abs = Math.abs(history1 - followBean.getData().getFollower());
+                                        if (history1 > followBean.getData().getFollower()) {
+                                            color = "#7cb342";
+                                            followStatus = "↓" + abs;
+                                        } else if (history1 < followBean.getData().getFollower()) {
+                                            color = "#e53935";
+                                            followStatus = "↑" + abs;
+                                        }
+                                        Spanned spanned = Html.fromHtml(
+                                                "<font color='#ff6c00' size='4'> follow数</font>" +
+                                                        "<font  color='" + color + "' >" + followBean.getData().getFollower() + "</font>&nbsp;" +
+                                                        "<font color='" + color + "' >" + followStatus + "</font>");
+                                        history1 = followBean.getData().getFollower();
+                                        mActivityHomeFollow.setText(spanned);
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void fail(IOException e) {
+
+                            }
+                        });
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
+        countDownTimer.start();
         activityHomeUpMessage.setText(
                 "性别：" + data.getSex()
                         + "\n简介：" + data.getSign()
@@ -171,5 +232,6 @@ public class homeUp extends AppCompatActivity {
         activityHomeUpMessage = (TextView) findViewById(R.id.activity_home_up_message);
         activityHomeUpWorks = (LinearLayout) findViewById(R.id.activity_home_up_works);
         activityHomeUpAnimation = (LinearLayout) findViewById(R.id.activity_home_up_animation);
+        mActivityHomeFollow = (TextView) findViewById(R.id.activity_home_follow);
     }
 }
